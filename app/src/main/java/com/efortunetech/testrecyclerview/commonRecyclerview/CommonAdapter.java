@@ -249,10 +249,24 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
      * @param position
      */
     public void removeOne(int position) {
+        // 传递的是list的position时
         list.remove(position);
+        if (hasHeader()) {
+            position = position + 1;
+        }
+
+//        // 传递的是item的position时
+//        if (hasHeader()) {
+//            list.remove(position-1);
+//        }else{
+//            list.remove(position);
+//        }
+
         notifyItemRemoved(position);
         // 刷新后面所有item位置，防止数组越界
         notifyItemRangeChanged(position, list.size() - position);
+
+
     }
 
     public interface setOnLoadMoreListener {
