@@ -50,9 +50,28 @@ public class MainActivity2 extends AppCompatActivity {
 
         testAdapter = new CommonAdapter<TestBean>(this, beanList, R.layout.item2, recyclerView) {
             @Override
-            protected void convert(Context context, CommonHolder holder, TestBean testBean) {
+            protected void convert(Context context, final CommonHolder holder, final TestBean testBean) {
                 holder.setText(R.id.name, testBean.name).setText(R.id.content, testBean.content)
                         .setImageResource(R.id.image, testBean.imageId).setBackGroundColor(testBean.color);
+                // 要保持点击后的状态时，需要改变bean中的状态值或者值
+//                if (testBean.isClicked) {
+//                    holder.setBackGroundColor(Color.YELLOW);
+//                } else {
+//                    holder.setBackGroundColor(Color.BLUE);
+//                }
+//                holder.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(MainActivity2.this, "点击了image", Toast.LENGTH_SHORT).show();
+//                        if (testBean.isClicked) {
+//                            testBean.isClicked = false;
+//                            holder.setBackGroundColor(Color.BLUE);
+//                        } else {
+//                            testBean.isClicked = true;
+//                            holder.setBackGroundColor(Color.YELLOW);
+//                        }
+//                    }
+//                });
             }
         };
         recyclerView.setAdapter(testAdapter);
@@ -66,6 +85,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 Toast.makeText(MainActivity2.this, "position => " + position, Toast.LENGTH_SHORT).show();
+                testAdapter.removeOne(position);
             }
         });
 

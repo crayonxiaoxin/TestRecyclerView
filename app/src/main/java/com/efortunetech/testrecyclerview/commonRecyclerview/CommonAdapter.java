@@ -111,7 +111,11 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
                     GridLayoutManager.LayoutParams layoutParams = (GridLayoutManager.LayoutParams) view.getLayoutParams();
                     int spanSize = layoutParams.getSpanSize();
                     int spanIndex = layoutParams.getSpanIndex();
-                    outRect.top = 10;
+                    if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1) {
+                        outRect.bottom = 0;
+                    } else {
+                        outRect.bottom = 10;
+                    }
                     if (spanSize != gridLayoutManager.getSpanCount()) {
                         if (spanIndex == 0) {
                             outRect.left = 10;
@@ -237,6 +241,18 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
         list.clear();
         list.addAll(updateList);
         notifyDataSetChanged();
+    }
+
+    /**
+     * 删除某一项
+     *
+     * @param position
+     */
+    public void removeOne(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        // 刷新后面所有item位置，防止数组越界
+        notifyItemRangeChanged(position, list.size() - position);
     }
 
     public interface setOnLoadMoreListener {

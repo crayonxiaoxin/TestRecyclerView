@@ -10,4 +10,5 @@ public class TestBean {
     public int imageId;
     public String name;
     public String content;
+    public boolean isClicked = false;
 }
