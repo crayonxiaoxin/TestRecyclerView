@@ -233,7 +233,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
     }
 
     /**
-     * 重新加载
+     * 更新加载
      *
      * @param updateList
      */
@@ -241,6 +241,22 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
         list.clear();
         list.addAll(updateList);
         notifyDataSetChanged();
+    }
+
+    /**
+     * 更新单项数据
+     *
+     * @param position
+     * @param data
+     */
+    public void updateOne(int position, T data) {
+        // 传递item位置
+        if (hasHeader()) {
+            list.set(position - 1, data);
+        } else {
+            list.set(position, data);
+        }
+        notifyItemChanged(position);
     }
 
     /**
