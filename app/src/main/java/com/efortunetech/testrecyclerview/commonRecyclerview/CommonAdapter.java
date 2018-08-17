@@ -214,11 +214,11 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
     }
 
     public boolean hasHeader() {
-        return headerView != null ? true : false;
+        return headerView != null;
     }
 
     public boolean hasFooter() {
-        return footerView != null ? true : false;
+        return footerView != null;
     }
 
     /**
