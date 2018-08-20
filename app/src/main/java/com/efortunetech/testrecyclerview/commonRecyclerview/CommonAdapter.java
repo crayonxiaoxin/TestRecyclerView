@@ -75,13 +75,8 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
                 super.onScrollStateChanged(recyclerView, newState);
                 if (FLAG_LINEAR || FLAG_GRID) {
                     int lastVisibleItemPosition = ((LinearLayoutManager) manager).findLastVisibleItemPosition();
-                    switch (newState) {
-                        // 上拉加载
-                        case SCROLL_STATE_IDLE:
-                            if ((lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1) && loadMoreListener != null) {
-                                loadMoreListener.loadMore();
-                            }
-                            break;
+                    if (newState == SCROLL_STATE_IDLE && (lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() - 1) && loadMoreListener != null) {
+                        loadMoreListener.loadMore();
                     }
                 }
             }
@@ -132,12 +127,12 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_HEADER) {
-            return new ReturnHolder(headerView);
+            return new CommonHolder(headerView, true);
         } else if (viewType == TYPE_FOOTER) {
-            return new ReturnHolder(footerView);
+            return new CommonHolder(footerView, true);
         } else {
             View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
-            return new CommonHolder(view);
+            return new CommonHolder(view, false);
         }
     }
 

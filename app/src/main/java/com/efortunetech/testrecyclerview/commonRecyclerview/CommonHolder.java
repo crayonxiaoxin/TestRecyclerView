@@ -17,15 +17,19 @@ public class CommonHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> mViews;
 
-    public CommonHolder(View itemView) {
+    public CommonHolder(View itemView, boolean isHeaderOrFooter) {
         super(itemView);
+        if (isHeaderOrFooter) {
+            return;
+        }
         mViews = new SparseArray<>();
     }
 
     /**
      * 从稀疏数组中取出对应的view，没有则findViewById添加到稀疏数组中（类似holder复用）
-     * @param resId     资源id
-     * @param <T>       任意类型view
+     *
+     * @param resId 资源id
+     * @param <T>   任意类型view
      * @return
      */
     public <T extends View> T getView(int resId) {
@@ -53,9 +57,9 @@ public class CommonHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public CommonHolder setImageURL(int resId,String url){
+    public CommonHolder setImageURL(int resId, String url) {
         ImageView imageView = getView(resId);
-        Picasso.get().load(url).resize(200,200).into(imageView);
+        Picasso.get().load(url).resize(200, 200).into(imageView);
         return this;
     }
 
