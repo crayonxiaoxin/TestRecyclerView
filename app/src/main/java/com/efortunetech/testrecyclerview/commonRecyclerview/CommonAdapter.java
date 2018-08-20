@@ -227,9 +227,11 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
      * @param appendList
      */
     public void addAll(List<T> appendList) {
-        int start = list.size() - 1;
-        list.addAll(appendList);
-        notifyItemRangeChanged(start, appendList.size());
+        if (appendList != null && appendList.size() > 0) {
+            int start = list.size() - 1;
+            list.addAll(appendList);
+            notifyItemRangeChanged(start, appendList.size());
+        }
     }
 
     /**
@@ -238,9 +240,11 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<RecyclerView
      * @param updateList
      */
     public void updateAll(List<T> updateList) {
-        list.clear();
-        list.addAll(updateList);
-        notifyDataSetChanged();
+        if (updateList != null && updateList.size() > 0) {
+            list.clear();
+            list.addAll(updateList);
+            notifyDataSetChanged();
+        }
     }
 
     /**
